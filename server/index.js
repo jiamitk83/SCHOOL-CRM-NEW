@@ -1,12 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = 5000;
-const JWT_SECRET = 'your-secret-key'; // In production, use environment variable
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'; // In production, use environment variable
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
 const dbName = 'teacherDashboardDB';
@@ -14,6 +15,14 @@ let db;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch all handler: send back React's index.html file for client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
