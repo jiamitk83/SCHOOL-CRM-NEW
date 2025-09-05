@@ -1,0 +1,18 @@
+services:
+  - name: server
+    type: web
+    buildCommand: cd server && npm install
+    startCommand: cd server && node index.js
+    envVars:
+      - key: MONGO_URL
+        value: mongodb://localhost:27017  # Replace with your MongoDB connection string
+      - key: JWT_SECRET
+        value: your-super-secret-jwt-key-change-this-in-production  # Change this to a secure secret
+  - name: client
+    type: web
+    buildCommand: cd client && npm install && npm run build
+    staticSite:
+      publishDir: client/build
+    envVars:
+      - key: REACT_APP_API_BASE_URL
+        value: https://server.onrender.com  # Replace with the actual server URL after deployment
