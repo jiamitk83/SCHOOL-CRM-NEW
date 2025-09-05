@@ -8,11 +8,6 @@ services:
         value: mongodb://localhost:27017  # Replace with your MongoDB connection string
       - key: JWT_SECRET
         value: your-super-secret-jwt-key-change-this-in-production  # Change this to a secure secret
-    env:
-      PYTHON_VERSION: 3.10.0
-      PIP_NO_CACHE_DIR: "off"
-      PIP_DISABLE_PIP_VERSION_CHECK: "on"
-      PIP_DEFAULT_TIMEOUT: "100"
   - name: client
     type: web
     buildCommand: cd client && npm install && npm run build
