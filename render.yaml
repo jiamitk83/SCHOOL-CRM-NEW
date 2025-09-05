@@ -15,4 +15,4 @@ services:
       publishDir: client/build
     envVars:
       - key: REACT_APP_API_BASE_URL
-        value: https://server.onrender.com  # Replace with the actual server URL after deployment
+        value: ${server_RENDER_EXTERNAL_URL}
