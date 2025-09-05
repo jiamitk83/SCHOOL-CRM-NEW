@@ -9,9 +9,10 @@ services:
       - key: JWT_SECRET
         value: your-super-secret-jwt-key-change-this-in-production  # Change this to a secure secret
   - name: client
-    type: static
+    type: web
     buildCommand: cd client && npm install && npm run build
-    publishDir: client/build
+    staticSite:
+      publishDir: client/build
     envVars:
       - key: REACT_APP_API_BASE_URL
         value: ${server_RENDER_EXTERNAL_URL}
